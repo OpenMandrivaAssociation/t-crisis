@@ -1,0 +1,11 @@
+diff -urN t-crisis-3.5.12a/makefile t-crisis-3.5.12a-patched/makefile
+--- t-crisis-3.5.12a/makefile	2011-06-07 16:11:12.000000000 +1100
++++ t-crisis-3.5.12a-patched/makefile	2011-10-25 20:31:35.620254043 +1100
+@@ -8,7 +8,6 @@
+ DEL_FILE = rm -f
+ 
+ CC      = g++
+-CFLAGS = -pipe -Wall -g #-"ggdb"
+ SDL_CFLAGS = $(shell sdl-config --cflags)
+ SDL_LIBS = $(shell sdl-config --libs) 
+ 

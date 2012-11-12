@@ -1,0 +1,715 @@
+diff -urN t-crisis-3.5.12a/src/audio.cpp t-crisis-3.5.12a-patched/src/audio.cpp
+--- t-crisis-3.5.12a/src/audio.cpp	2011-07-11 11:48:06.000000000 +1100
++++ t-crisis-3.5.12a-patched/src/audio.cpp	2011-10-25 21:00:21.649255088 +1100
+@@ -10,7 +10,7 @@
+ extern Game* game;
+ 
+ //-------------------------------------------------------------------------------------------------
+-Audio::Audio(void)
++Audio::Audio(char *datapath_dir)
+ {
+     MusicVolume = 64;
+     SoundVolume = 64;
+@@ -20,6 +20,9 @@
+     for (int musicIndex = 0; musicIndex < MusicTotal; musicIndex++)  MusicTrack[musicIndex] = NULL;
+ 
+     AudioWorking = false;
++
++    strcpy(datapath, datapath_dir);
++    printf("Audio: %s\n", datapath);
+ }
+ 
+ //-------------------------------------------------------------------------------------------------
+@@ -52,6 +55,8 @@
+ //-------------------------------------------------------------------------------------------------
+ bool Audio::SetupAudio(void)
+ {
++    char filePath[256];
++
+     if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 1/*MIX_DEFAULT_CHANNELS*/, 1024)==-1)
+     {
+         printf("ERROR: SDL_Mixer init failed: %s\n", Mix_GetError());
+@@ -68,103 +73,128 @@
+     for (int index = 0; index < MusicTotal; index++)
+     {
+         MusicTrack[index] = NULL;
++	strcpy(filePath, datapath);
+ 
+-        switch(index)
+-        {
+-            case 0:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Title-BGM2.mod");
+-                break;
+-
+-            case 1:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Title-BGM2.mod");
+-                break;
++	switch(index)
++	{
++	    case 0:
++		strcat(filePath, "music/Title-BGM2.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
++		break;
++
++	    case 1:
++		strcat(filePath, "music/Title-BGM2.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
++		break;
+ 
+             case 2:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/New-High-Score.mod");
+-                break;
++		strcat(filePath, "music/New-High-Score.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
++		break;
+ 
+             case 3:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Crisis-I-Mode-Level7.mod");
+-                break;
++		strcat(filePath, "music/Crisis-I-Mode-Level7.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
++		break;
+ 
+             case 4:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Track-1-BGM.mod");
+-                break;
++		strcat(filePath, "music/Track-1-BGM.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
++		break;
+ 
+             case 5:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Track-2-BGM.mod");
+-                break;
++		strcat(filePath, "music/Track-2-BGM.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
++		break;
+ 
+             case 6:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Track-3-BGM.mod");
+-                break;
++		strcat(filePath, "music/Track-3-BGM.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
++		break;
+ 
+             case 7:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Track-4-BGM.mod");
+-                break;
++		strcat(filePath, "music/Track-4-BGM.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
++		break;
+ 
+             case 8:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Track-5-BGM.mod");
+-                break;
++		strcat(filePath, "music/Track-5-BGM.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
++		break;
+ 
+             case 9:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Track-6-BGM.mod");
+-                break;
++		strcat(filePath, "music/Track-6-BGM.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
++		break;
+ 
+             case 10:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Track-7-BGM.mod");
+-                break;
++		strcat(filePath, "music/Track-7-BGM.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
++		break;
+ 
+             case 11:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Track-8-BGM.mod");
+-                break;
++		strcat(filePath, "music/Track-8-BGM.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
++		break;
+ 
+             case 12:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Track-9-BGM.mod");
+-                break;
++		strcat(filePath, "music/Track-9-BGM.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
++		break;
+ 
+             case 13:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Track-10-BGM.mod");
+-                break;
++		strcat(filePath, "music/Track-10-BGM.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
++		break;
+ 
+             case 14:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Track-11-BGM.mod");
+-                break;
++		strcat(filePath, "music/Track-11-BGM.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
++		break;
+ 
+             case 15:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Track-12-BGM.mod");
+-                break;
++		strcat(filePath, "music/Track-12-BGM.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
++		break;
+ 
+             case 16:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Track-13-BGM.mod");
+-                break;
++		strcat(filePath, "music/Track-13-BGM.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
++		break;
+ 
+             case 17:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Track-14-BGM.mod");
++		strcat(filePath, "music/Track-14-BGM.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
+                 break;
+ 
+             case 18:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Track-15-BGM.mod");
++		strcat(filePath, "music/Track-15-BGM.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
+                 break;
+ 
+             case 19:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Track-16-BGM.mod");
++		strcat(filePath, "music/Track-16-BGM.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
+                 break;
+ 
+             case 20:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Track-17-BGM.mod");
++		strcat(filePath, "music/Track-17-BGM.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
+                 break;
+ 
+             case 21:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Track-18-BGM.mod");
++		strcat(filePath, "music/Track-18-BGM.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
+                 break;
+ 
+             case 22:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Track-19-BGM.mod");
++		strcat(filePath, "music/Track-19-BGM.mod");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
+                 break;
+ 
+             case 24:
+-                MusicTrack[index] = Mix_LoadMUS("data/music/Win.ogg");
++		strcat(filePath, "music/Win.ogg");
++		MusicTrack[index] = Mix_LoadMUS(filePath);
+                 break;
+ 
+             default:
+@@ -183,67 +213,83 @@
+     for (int index = 0; index < SoundTotal; index++)
+     {
+         SoundFX[index] = NULL;
++	strcpy(filePath, datapath);
+ 
+         switch(index)
+         {
+             case 0:
+-                SoundFX[index] = Mix_LoadWAV("data/sound/Click.wav");
+-                break;
++		strcat(filePath, "sound/Click.wav");
++		SoundFX[index] = Mix_LoadWAV(filePath);
++		break;
+ 
+             case 1:
+-                SoundFX[index] = Mix_LoadWAV("data/sound/Click.wav");
+-                break;
+-
+-            case 2:
+-                SoundFX[index] = Mix_LoadWAV("data/sound/Move-Piece.wav");
+-                break;
+-
+-            case 3:
+-                SoundFX[index] = Mix_LoadWAV("data/sound/Piece-Collision.wav");
+-                break;
+-
+-            case 4:
+-                SoundFX[index] = Mix_LoadWAV("data/sound/Piece-Drop.wav");
+-                break;
+-
+-            case 5:
+-                SoundFX[index] = Mix_LoadWAV("data/sound/Piece-Rotate.wav");
+-                break;
+-
+-            case 6:
+-                SoundFX[index] = Mix_LoadWAV("data/sound/Line-Cleared.wav");
+-                break;
+-
+-            case 7:
+-                SoundFX[index] = Mix_LoadWAV("data/sound/Tetri-Cleared.wav");
+-                break;
+-
+-            case 8:
+-                SoundFX[index] = Mix_LoadWAV("data/sound/Level-Up.wav");
+-                break;
+-
+-            case 9:
+-                SoundFX[index] = Mix_LoadWAV("data/sound/Must-Think-In-Russian.wav");
+-                break;
+-
+-            case 10:
+-                SoundFX[index] = Mix_LoadWAV("data/sound/Incoming-Line.wav");
+-                break;
+-
+-            case 11:
+-                SoundFX[index] = Mix_LoadWAV("data/sound/Game-Over.wav");
+-                break;
+-
+-            case 12:
+-                SoundFX[index] = Mix_LoadWAV("data/sound/Crack.wav");
+-                break;
+-
+-            case 13:
+-                SoundFX[index] = Mix_LoadWAV("data/sound/Shall-We-Play-A-Game.wav");
+-                break;
++		strcat(filePath, "sound/Click.wav");
++		SoundFX[index] = Mix_LoadWAV(filePath);
++		break;
++
++	    case 2:
++		strcat(filePath, "sound/Move-Piece.wav");
++		SoundFX[index] = Mix_LoadWAV(filePath);
++		break;
++
++	    case 3:
++		strcat(filePath, "sound/Piece-Collision.wav");
++		SoundFX[index] = Mix_LoadWAV(filePath);
++		break;
++
++	    case 4:
++		strcat(filePath, "sound/Piece-Drop.wav");
++		SoundFX[index] = Mix_LoadWAV(filePath);
++		break;
++
++	    case 5:
++		strcat(filePath, "sound/Piece-Rotate.wav");
++		SoundFX[index] = Mix_LoadWAV(filePath);
++		break;
++
++	    case 6:
++		strcat(filePath, "sound/Line-Cleared.wav");
++		SoundFX[index] = Mix_LoadWAV(filePath);
++		break;
++
++	    case 7:
++		strcat(filePath, "sound/Tetri-Cleared.wav");
++		SoundFX[index] = Mix_LoadWAV(filePath);
++		break;
++
++	    case 8:
++		strcat(filePath, "sound/Level-Up.wav");
++		SoundFX[index] = Mix_LoadWAV(filePath);
++		break;
++
++	    case 9:
++		strcat(filePath, "sound/Must-Think-In-Russian.wav");
++		SoundFX[index] = Mix_LoadWAV(filePath);
++		break;
++
++	    case 10:
++		strcat(filePath, "sound/Incoming-Line.wav");
++		SoundFX[index] = Mix_LoadWAV(filePath);
++		break;
++
++	    case 11:
++		strcat(filePath, "sound/Game-Over.wav");
++		SoundFX[index] = Mix_LoadWAV(filePath);
++		break;
++
++	    case 12:
++		strcat(filePath, "sound/Crack.wav");
++		SoundFX[index] = Mix_LoadWAV(filePath);
++		break;
++
++	    case 13:
++		strcat(filePath, "sound/Shall-We-Play-A-Game.wav");
++		SoundFX[index] = Mix_LoadWAV(filePath);
++		break;
+ 
+             case 14:
+-                SoundFX[index] = Mix_LoadWAV("data/sound/Sword.wav");
++		strcat(filePath, "sound/Sword.wav");
++		SoundFX[index] = Mix_LoadWAV(filePath);
+ 
+             default:
+                 break;
+diff -urN t-crisis-3.5.12a/src/audio.h t-crisis-3.5.12a-patched/src/audio.h
+--- t-crisis-3.5.12a/src/audio.h	2011-07-11 10:51:42.000000000 +1100
++++ t-crisis-3.5.12a-patched/src/audio.h	2011-10-25 20:51:37.573254772 +1100
+@@ -2,7 +2,7 @@
+ {
+ public:
+ 
+-    Audio(void);
++    Audio(char *datapath_dir);
+     virtual ~Audio(void);
+ 
+     bool AudioWorking;
+@@ -18,4 +18,7 @@
+     bool SetupAudio(void);
+     void PlayMusic(Uint8 musicIndex, int loop);
+     void PlayDigitalSoundFX(Uint8 soundIndex, int loop);
++
++private:
++    char datapath[256];
+ };
+diff -urN t-crisis-3.5.12a/src/interface.cpp t-crisis-3.5.12a-patched/src/interface.cpp
+--- t-crisis-3.5.12a/src/interface.cpp	2011-07-08 13:54:50.000000000 +1100
++++ t-crisis-3.5.12a-patched/src/interface.cpp	2011-10-25 20:51:37.574254772 +1100
+@@ -17,12 +17,14 @@
+ extern Audio* audio;
+ 
+ //-------------------------------------------------------------------------------------------------
+-Interface::Interface(void)
++Interface::Interface(char *datapath_dir)
+ {
+     for (int index = 0; index < NumberOfGUIs; index++)
+     {
+         GUIs[index].OGL_Texture = (GLuint)NULL;
+     }
++    strcpy(datapath, datapath_dir);
++    printf("Interface: %s\n", datapath);
+ }
+ 
+ //-------------------------------------------------------------------------------------------------
+@@ -52,22 +54,23 @@
+ char buttonText[64];
+ 
+     ButtonsFont = NULL;
+-    if ( !(ButtonsFont = TTF_OpenFont("data/interface/Default.ttf", 27)) )
++    strcpy(filePath, datapath);
++    strcat(filePath, "interface/Default.ttf");
++    if ( !(ButtonsFont = TTF_OpenFont(filePath, 27)) )
+     {
+         printf("ERROR: Loading font: %s\n", TTF_GetError());
+         return false;
+     }
+ 
+-    strcpy(filePath, "~\0");
+-
+     for (int indexGUI = 0; indexGUI < NumberOfGUIs; indexGUI++)
+     {
+-        if      (indexGUI == 0)  strcpy(filePath, "data/interface/Button-Selector-Left.png");
+-        else if (indexGUI == 1)  strcpy(filePath, "data/interface/Button-Selector-Right.png");
+-        else if (indexGUI >  1 && indexGUI < 10)  strcpy(filePath, "data/interface/Button.png");
+-        else if (indexGUI == 10)  strcpy(filePath, "data/interface/Selector-Line.png");
+-        else if (indexGUI % 2 != 0)  strcpy(filePath, "data/interface/Button-Selector-Right.png");
+-        else   strcpy(filePath, "data/interface/Button-Selector-Left.png");
++        strcpy(filePath, datapath);
++        if      (indexGUI == 0)  strcat(filePath, "interface/Button-Selector-Left.png");
++        else if (indexGUI == 1)  strcat(filePath, "interface/Button-Selector-Right.png");
++        else if (indexGUI >  1 && indexGUI < 10)  strcat(filePath, "interface/Button.png");
++        else if (indexGUI == 10)  strcat(filePath, "interface/Selector-Line.png");
++        else if (indexGUI % 2 != 0)  strcat(filePath, "interface/Button-Selector-Right.png");
++        else   strcat(filePath, "interface/Button-Selector-Left.png");
+ 
+         strcat(filePath, "\0");
+ 
+diff -urN t-crisis-3.5.12a/src/interface.h t-crisis-3.5.12a-patched/src/interface.h
+--- t-crisis-3.5.12a/src/interface.h	2011-07-07 14:52:24.000000000 +1100
++++ t-crisis-3.5.12a-patched/src/interface.h	2011-10-25 20:51:37.575254772 +1100
+@@ -2,7 +2,7 @@
+ {
+ public:
+ 
+-	Interface(void);
++	Interface(char *datapath_dir);
+ 	virtual ~Interface(void);
+ 
+     TTF_Font *ButtonsFont;
+@@ -50,4 +50,7 @@
+     void DestroyAllArrowSets(void);
+ 
+     void UnloadGUIFromMemory(void);
++
++private:
++    char datapath[256];
+ };
+diff -urN t-crisis-3.5.12a/src/main.cpp t-crisis-3.5.12a-patched/src/main.cpp
+--- t-crisis-3.5.12a/src/main.cpp	2011-07-08 13:36:10.000000000 +1100
++++ t-crisis-3.5.12a-patched/src/main.cpp	2011-10-25 20:51:37.575254772 +1100
+@@ -56,7 +56,9 @@
+ {
+     game = new Game();
+ 
+-    visuals = new Visuals();
++    settings = new Settings(argc, args);
++
++    visuals = new Visuals(settings->GetDataPath());
+ 
+     runtime = new Runtime(argc, args);
+ 
+@@ -70,10 +72,9 @@
+ 
+     screens = new Screens();
+ 
+-    interface = new Interface();
++    interface = new Interface(settings->GetDataPath());
+     if ( interface->CreateAllGUIAndInitialize(true) != true )  game->CoreFailure = true;
+ 
+-    settings = new Settings(argc, args);
+     data = new Data();
+     data->ClearHighScores();
+ 
+@@ -81,7 +82,7 @@
+ 
+     srand( (unsigned)time(NULL) ); // Place unique time seed into random number generator.
+ 
+-    audio = new Audio();
++    audio = new Audio(settings->GetDataPath());
+ 
+     data->LoadHighScoresAndOptions();
+ 
+diff -urN t-crisis-3.5.12a/src/settings.cpp t-crisis-3.5.12a-patched/src/settings.cpp
+--- t-crisis-3.5.12a/src/settings.cpp	2011-07-07 14:52:24.000000000 +1100
++++ t-crisis-3.5.12a-patched/src/settings.cpp	2011-10-25 20:51:37.575254772 +1100
+@@ -443,7 +443,7 @@
+ 
+ 			if (pFile != NULL)
+ 			{
+-				sprintf(datapath_buffer, "%s/", PKGDATADIR);
++				sprintf(datapath_buffer, "%s", PKGDATADIR);
+ 				datapath_temp = datapath_buffer;
+ 				fclose (pFile);
+ 			}
+diff -urN t-crisis-3.5.12a/src/visuals.cpp t-crisis-3.5.12a-patched/src/visuals.cpp
+--- t-crisis-3.5.12a/src/visuals.cpp	2011-07-15 11:10:46.000000000 +1100
++++ t-crisis-3.5.12a-patched/src/visuals.cpp	2011-10-25 21:00:02.756255076 +1100
+@@ -17,7 +17,7 @@
+ extern Screens* screens;
+ 
+ //-------------------------------------------------------------------------------------------------
+-Visuals::Visuals(void)
++Visuals::Visuals(char *datapath_dir)
+ {
+     for (int index = 0; index < NumberOfSprites; index++)
+     {
+@@ -35,6 +35,9 @@
+     }
+ 
+     ColorIsRGBA = true;
++
++    strcpy(datapath, datapath_dir);
++    printf("Visuals: %s\n", datapath);
+ }
+ 
+ //-------------------------------------------------------------------------------------------------
+@@ -68,6 +71,8 @@
+ //-------------------------------------------------------------------------------------------------
+ bool Visuals::SetupGameWindow(int width, int height)
+ {
++char filePath[256];
++
+     putenv( strdup("SDL_VIDEO_CENTERED=1") );
+ 
+     if ( SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) != 0 )///SDL_INIT_EVERYTHING) != 0 )
+@@ -78,7 +83,9 @@
+     else  printf("SDL (Everything) initialized\n");
+ 
+     SDL_WM_SetCaption("T-Crisis 3 100% A.I.[TM] - (C)2011 By 16BitSoft(R)", NULL);
+-    SDL_WM_SetIcon(SDL_LoadBMP("data/graphics/Icon.bmp"), NULL);
++    strcpy(filePath, datapath);
++    strcat(filePath, "graphics/Icon.bmp");
++    SDL_WM_SetIcon(SDL_LoadBMP(filePath), NULL);
+ 
+     if (width != 640 || height != 480)
+     {
+@@ -214,79 +221,78 @@
+ SDL_Rect dstRect;
+ int index = 0;
+ 
+-    strcpy(filePath, "~\0");
+-
+     for (index = 0; index < NumberOfSprites; index++)
+     {
++	strcpy(filePath, datapath);
+         switch(index)
+         {
+             case 0:
+-                strcpy(filePath, "data/graphics/Screen-Fade.png");
++                strcat(filePath, "graphics/Screen-Fade.png");
+                 break;
+ 
+             case 1:
+-                strcpy(filePath, "data/graphics/Screen-Fade.png");
++                strcat(filePath, "graphics/Screen-Fade.png");
+                 break;
+ 
+             case 8:
+-                strcpy(filePath, "data/graphics/cnet-Logo.png");
++                strcat(filePath, "graphics/cnet-Logo.png");
+                 break;
+ 
+             case 10:
+-                strcpy(filePath, "data/graphics/16BitSoft-Logo.png");
++                strcat(filePath, "graphics/16BitSoft-Logo.png");
+                 break;
+ 
+             case 20:
+-                strcpy(filePath, "data/graphics/Title-BG.png");
++                strcat(filePath, "graphics/Title-BG.png");
+                 break;
+ 
+             case 25:
+-                strcpy(filePath, "data/graphics/T-Crisis3-Logo.png");
++                strcat(filePath, "graphics/T-Crisis3-Logo.png");
+                 break;
+ 
+             case 30:
+-                strcpy(filePath, "data/graphics/Keyboard-Controls.png");
++                strcat(filePath, "graphics/Keyboard-Controls.png");
+                 break;
+ 
+             case 40:
+-                strcpy(filePath, "data/graphics/Title-BG.png");
++                strcat(filePath, "graphics/Title-BG.png");
+                 break;
+ 
+             case 41:
+-                strcpy(filePath, "data/graphics/MIG31-BG.png");
++                strcat(filePath, "graphics/MIG31-BG.png");
+                 break;
+ 
+             case 42:
+-                strcpy(filePath, "data/graphics/City-BG.png");
++                strcat(filePath, "graphics/City-BG.png");
+                 break;
+ 
+             case 43:
+-                strcpy(filePath, "data/graphics/Van-Gogh-BG.png");
++                strcat(filePath, "graphics/Van-Gogh-BG.png");
+                 break;
+ 
+             case 44:
+-                strcpy(filePath, "data/graphics/Beach-BG.png");
++                strcat(filePath, "graphics/Beach-BG.png");
+                 break;
+ 
+             case 45:
+-                strcpy(filePath, "data/graphics/Nissan-GTR-BG.png");
++                strcat(filePath, "graphics/Nissan-GTR-BG.png");
+                 break;
+ 
+             case 50:
+-                strcpy(filePath, "data/graphics/Box-Tiles.png");
++                strcat(filePath, "graphics/Box-Tiles.png");
+                 break;
+ 
+ 
+             case 300:
+-                strcpy(filePath, "data/graphics/PlayField.png");
++                strcat(filePath, "graphics/PlayField.png");
+                 break;
+ 
+             case 310:
+-                strcpy(filePath, "data/graphics/Crack.png");
++                strcat(filePath, "graphics/Crack.png");
+                 break;
+ 
+             case 320:
+-                strcpy(filePath, "data/graphics/IMNEO.png");
++                strcat(filePath, "graphics/IMNEO.png");
+                 break;
+ 
+             default:
+@@ -294,9 +300,13 @@
+                 break;
+         }
+ 
+-        strcat(filePath, "\0");
++        if (index > 49 && index < 110) 
++        {
++	    strcpy(filePath, datapath);
++	    strcat(filePath, "graphics/Box-Tiles.png");
++        }
+ 
+-        if (index > 49 && index < 110)  strcpy(filePath, "data/graphics/Box-Tiles.png");
++        strcat(filePath, "\0");
+ 
+         if (filePath[0] != '~')
+         {
+@@ -602,42 +612,49 @@
+ bool Visuals::LoadFontsIntoMemory(void)
+ {
+     FontDefault[0] = NULL;
+-    if ( !(FontDefault[0] = TTF_OpenFont("data/fonts/Default.ttf", 27)) )
++    char filePath[256];
++    strcpy(filePath, datapath);
++    strcat(filePath, "fonts/Default.ttf");
++    if ( !(FontDefault[0] = TTF_OpenFont(filePath, 27)) )
+     {
+         printf("ERROR: Loading font: %s\n", TTF_GetError());
+         return false;
+     }
+ 
+     FontDefault[1] = NULL;
+-    if ( !(FontDefault[1] = TTF_OpenFont("data/fonts/Default.ttf", 22)) )
++    if ( !(FontDefault[1] = TTF_OpenFont(filePath, 22)) )
+     {
+         printf("ERROR: Loading font: %s\n", TTF_GetError());
+         return false;
+     }
+ 
+     FontDefault[2] = NULL;
+-    if ( !(FontDefault[2] = TTF_OpenFont("data/fonts/Default.ttf", 14)) )
++    if ( !(FontDefault[2] = TTF_OpenFont(filePath, 14)) )
+     {
+         printf("ERROR: Loading font: %s\n", TTF_GetError());
+         return false;
+     }
+ 
+     FontDefault[3] = NULL;
+-    if ( !(FontDefault[3] = TTF_OpenFont("data/fonts/Default.ttf", 45)) )
++    if ( !(FontDefault[3] = TTF_OpenFont(filePath, 45)) )
+     {
+         printf("ERROR: Loading font: %s\n", TTF_GetError());
+         return false;
+     }
+ 
+     FontDefault[4] = NULL;
+-    if ( !(FontDefault[4] = TTF_OpenFont("data/fonts/Destructo.ttf", 27)) )
++    strcpy(filePath, datapath);
++    strcat(filePath, "fonts/Destructo.ttf");
++    if ( !(FontDefault[4] = TTF_OpenFont(filePath, 27)) )
+     {
+         printf("ERROR: Loading font: %s\n", TTF_GetError());
+         return false;
+     }
+ 
+     FontDefault[5] = NULL;
+-    if ( !(FontDefault[5] = TTF_OpenFont("data/fonts/Destructo.ttf", 23)) )
++    strcpy(filePath, datapath);
++    strcat(filePath, "fonts/Destructo.ttf");
++    if ( !(FontDefault[5] = TTF_OpenFont(filePath, 23)) )
+     {
+         printf("ERROR: Loading font: %s\n", TTF_GetError());
+         return false;
+diff -urN t-crisis-3.5.12a/src/visuals.h t-crisis-3.5.12a-patched/src/visuals.h
+--- t-crisis-3.5.12a/src/visuals.h	2011-07-08 12:51:34.000000000 +1100
++++ t-crisis-3.5.12a-patched/src/visuals.h	2011-10-25 20:51:37.577254772 +1100
+@@ -2,7 +2,7 @@
+ {
+ public:
+ 
+-	Visuals(void);
++	Visuals(char *datapath_dir);
+ 	virtual ~Visuals(void);
+ 
+     SDL_Surface *Screen;
+@@ -82,5 +82,7 @@
+ 
+     void ClearScreenBufferWithColor(GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha);
+     void DisplayScreenBufferOntoDisplay(void);
+-
++    
++private:
++    char datapath[256];
+ };
