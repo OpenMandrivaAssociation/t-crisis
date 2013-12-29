@@ -1,6 +1,6 @@
 %define name t-crisis
 %define version 3.5.12a
-%define release 2
+%define release 3
 
 Summary:	T-Crisis 3 100% A.I. is a Tetris clone with special modes
 Name:		%{name}
