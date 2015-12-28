@@ -1,7 +1,2 @@
 sources:
-  "t-crisis-128.png:"	e26bd697eabcecd2383d044295a709b62ae79595
-  "t-crisis-16.png:"	26f252a9a300ef806fc30b952db0507ab6fa3131
-  "t-crisis-32.png:"	8e0baa2ff914c48ee58d0371ea0c50913b138151
-  "t-crisis-3.5.12a.zip:"	3b08238cba4e2fcff99f4b6310b36d3cf76f7865
-  "t-crisis-48.png:"	b4853154872cc3e230daa022ca3e2cca44fc2733
-  "t-crisis-64.png:"	8f59bcacca3986b347a191dd34c86b1ef862a21f
+  t-crisis-3.5.12a.zip: 3b08238cba4e2fcff99f4b6310b36d3cf76f7865

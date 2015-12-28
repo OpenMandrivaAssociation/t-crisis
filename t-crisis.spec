@@ -1,6 +1,7 @@
 %define name t-crisis
 %define version 3.5.12a
 %define release 3
+%define debug_package %{nil}
 
 Summary:	T-Crisis 3 100% A.I. is a Tetris clone with special modes
 Name:		%{name}
@@ -17,11 +18,10 @@ Source13:	%{name}-32.png
 Source14:	%{name}-16.png
 Patch1:		t-crisis-3.5.12a-datapath.patch
 Patch2:		t-crisis-3.5.12a-makefile.patch
-BuildRequires:	SDL-devel
+BuildRequires:	pkgconfig(sdl)
 BuildRequires:	SDL_ttf-devel
 BuildRequires:	SDL_image-devel
 BuildRequires:	SDL_mixer-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Obsoletes:	tetricrisis3 <= %{version}
 
 %description
@@ -53,7 +53,7 @@ export CFLAGS="%{optflags} -DPKGDATADIR=\\\"%{_gamesdatadir}/%{name}/data\\\""
 
 %__install -d %{buildroot}%{_gamesbindir}
 %__install -d %{buildroot}%{_gamesdatadir}/%{name}
-%__cp -R data %{buildroot}%{_gamesdatadir}/%{name}/
+cp -R data %{buildroot}%{_gamesdatadir}/%{name}/
 %__install -D -m 755 %{name} %{buildroot}%{_gamesbindir}/%{name}
 
 %__install -D -m 644 %{SOURCE14} %{buildroot}%{_iconsdir}/hicolor/16x16/apps/%{name}.png
@@ -78,11 +78,7 @@ StartupNotify=true
 Categories=Game;ArcadeGame;
 EOF
 
-%clean
-%__rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %{_gamesbindir}/%{name}
 %dir %{_gamesdatadir}/%{name}/data
 %{_gamesdatadir}/%{name}/data/*
