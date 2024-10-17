@@ -9,7 +9,7 @@ Version:	%{version}
 Release:	%{release}
 Group:		Games/Arcade
 License:	Open-Source Freeware unknown
-Url:		http://16bitsoft.com/games-TetriCrisis3CPU.htm
+Url:		https://16bitsoft.com/games-TetriCrisis3CPU.htm
 Source:		http://16bitsoft.com/files/TC3100CPU/SOURCE/%{name}-%{version}.zip
 Source10:	%{name}-128.png
 Source11:	%{name}-64.png
