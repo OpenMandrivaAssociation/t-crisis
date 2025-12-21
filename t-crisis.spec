@@ -18,6 +18,7 @@ Source13:	%{name}-32.png
 Source14:	%{name}-16.png
 Patch1:		t-crisis-3.5.12a-datapath.patch
 Patch2:		t-crisis-3.5.12a-makefile.patch
+BuildRequires:	make
 BuildRequires:	pkgconfig(sdl)
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(glu)
